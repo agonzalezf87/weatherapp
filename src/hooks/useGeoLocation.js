@@ -6,10 +6,6 @@ const useGeoLocation = () => {
     coords: {
       lat: 0,
       lon: 0
-    },
-    error: {
-      code: null,
-      message: ""
     }
   })
 
@@ -18,7 +14,8 @@ const useGeoLocation = () => {
     setCoordinates({
       loaded: true,
       coords: {
-        lat: crd.latitude
+        lat: crd.latitude,
+        lon: crd.longitude
       }
     })
   }
@@ -32,7 +29,7 @@ const useGeoLocation = () => {
     })
   }
 
-  useEffect(() => {
+  const getCoordinates = () => {
     if (!!navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(onSuccess, onError, {enableHighAccuracy: true})
     } else {
@@ -43,7 +40,9 @@ const useGeoLocation = () => {
         }
       })
     }
-  }, [])
+  }
+
+  return {coordinates, getCoordinates}
 }
 
 export { useGeoLocation }

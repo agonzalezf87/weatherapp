@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const WeatherContext = createContext()

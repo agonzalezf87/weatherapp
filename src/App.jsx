@@ -1,11 +1,13 @@
+import { useContext } from 'react'
+import { WeatherProvider } from './context/WeatherContext'
+import { UI } from './components/UI'
 
 function App() {
-
   return (
-    <main>
-      <h1>Weather App</h1>
-    </main>
+    <WeatherProvider>
+      <UI />
+    </WeatherProvider>
   )
 }
 
-export default App
+export { App }

@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react"
 import { WeatherContext } from "../context/WeatherContext"
 import axios from "axios"
 import UIStyle from '../styles/UI.module.css'
+import { TopBar } from "./TopBar"
 import { Hero } from './Hero'
 import { Details } from './Details'
-import { TopBar } from "./TopBar"
+import { DailyDetails } from "./DailyDetails"
 
 const apiURL = import.meta.env.VITE_API_URL
 const apiKey = import.meta.env.VITE_API_KEY
@@ -12,6 +13,7 @@ const apiKey = import.meta.env.VITE_API_KEY
 const UI = () => {
   const {
     parameters,
+    today,
     toggleLang,
     toggleMode,
     toggleUnits
@@ -106,6 +108,12 @@ const UI = () => {
     }
   }, [appUnits, appLang])
 
+  /* useEffect(() => {
+    if (weather !== undefined && forecast !== undefined) {
+      console.log(today)
+    }
+  }) */
+
   if (weather === undefined) {
     return (
       <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
@@ -151,6 +159,7 @@ const UI = () => {
           <TopBar />
           <Hero data={weather} />
           <Details weather={weather} forecast={forecast.list} variation={'time'}/>
+          <DailyDetails weather={weather} forecast={forecast.list} />
         </section>
       </main>
     )

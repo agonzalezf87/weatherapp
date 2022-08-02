@@ -4,8 +4,7 @@ import HeroStyle from '../styles/Hero.module.css'
 import { getDayMonth } from '../services/dateHandling'
 
 const Hero = ({data}) => {
-  const {parameters} = useContext(WeatherContext)
-  const [today, setToday] = useState(Date.now())
+  const {parameters, today} = useContext(WeatherContext)
   const {appLang, appUnits} = parameters[0]
 
   return (

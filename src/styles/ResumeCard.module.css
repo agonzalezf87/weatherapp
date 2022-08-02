@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  margin: 0 8px
+  margin: 0 8px;
 }
 
 .ResumeCard__title {
@@ -27,4 +27,83 @@
   text-align: center;
   font-size: 2rem;
   line-height: 2.4rem;
+}
+
+.ResumeCardVert {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.ResumeCardVert__title, .ResumeCardVert__weather, .ResumeCardVert__minTemp, .ResumeCardVert__minmax, .ResumeCardVert__maxTemp {
+  padding: 0 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.ResumeCardVert__title {
+  height: 100%;
+  font-weight: 600;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 2.4rem;
+  text-transform: uppercase;
+}
+
+.ResumeCardVert__icon {
+  height: 100%;
+}
+
+.ResumeCardVert__weather, .ResumeCardVert__minTemp, .ResumeCardVert__maxTemp {
+  height: 100%;
+  font-weight: 700;  
+}
+
+.ResumeCard__weather {
+  font-size: 2rem;
+  line-height: 2.4rem;
+}
+
+.ResumeCardVert__minTemp, .ResumeCardVert__maxTemp {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+}
+
+.ResumeCardVert__minTemp {
+  padding-right: 0;
+  justify-content: flex-end;
+}
+
+.ResumeCardVert__maxTemp {
+  padding-left: 0;
+  justify-content: flex-start;
+}
+
+.ResumeCardVert__minmax {
+  height: 100%;
+}
+
+.ResumeCardVert__minmax {
+  padding: 0;
+}
+
+.ResumeCardVert__minmax__content {
+  width: 64px;
+  height: 4px;
+  border: 2px solid gray;
+  border-radius: 2px;
+}
+
+.ResumeCardVert__minmax__today {
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
 }

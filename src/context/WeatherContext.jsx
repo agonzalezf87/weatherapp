@@ -10,6 +10,8 @@ const WeatherProvider = (props) => {
     appUnits: 'imperial',
     savedCoords: []
   }])
+  
+  const [today, setToday] = useState(Date.now())
 
   const toggleLang = () => {
     const newLang = [...parameters]
@@ -32,6 +34,7 @@ const WeatherProvider = (props) => {
   return (
     <WeatherContext.Provider value={{
       parameters,
+      today,
       toggleLang,
       toggleMode,
       toggleUnits

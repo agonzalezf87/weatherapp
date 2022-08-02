@@ -19,15 +19,25 @@ const getDayName = (code, lang) => {
   }
 }
 
+const setDate = (variable) => {
+  const t = variable.split(/[- :]/)
+  const d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+  const date = new Date(d)
+  return date
+}
+
 const getDay = (code) => {
+  const date = setDate(code)
+  return date.getDate()
+}
+
+const getTsDay = (code) => {
   const date = new Date(code)
   return date.getDate()
 }
 
 const getHour = (code) => {
-  const t = code.split(/[- :]/)
-  const d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
-  const date = new Date(d)
+  const date = setDate(code)
   return date.getHours() === 0 ? '00' : date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()
 }
 
@@ -67,4 +77,4 @@ const getDayMonth = (date, language) => {
   return language === 'es' ? `${today.getDate()} ${getMonth(today)} ${today.getUTCFullYear()}` : `${getMonth(today, language)} ${today.getDate()} ${today.getUTCFullYear()}`
 } 
 
-export {getDay, getDayName, getHour, getDayMonth}
+export {getDay, getDayName, getHour, getDayMonth, getTsDay}

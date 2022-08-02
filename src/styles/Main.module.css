@@ -15,4 +15,5 @@ body {
   font-size: 1.6rem;
   color: white;
   scroll-behavior: smooth;
+  overflow: hidden;
 }

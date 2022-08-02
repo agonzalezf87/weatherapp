@@ -1,6 +1,6 @@
 .Hero {
   width: 165px;
-  height: 150px;
+  height: 180px;
   text-shadow: 1px 1px rgba(0, 0, 0, .8);
   display: flex;
   flex-direction: column;
@@ -11,13 +11,17 @@
   border: 2px solid rgba(255,255,255,.3);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, .8);
   font-weight: 500;
-  margin-bottom: 15px;
 }
 
-.Hero h2 {
+.Hero__date {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.Hero__title {
   font-weight: 500;
   font-size: 2rem;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .Hero__temp {
@@ -33,12 +37,12 @@
 
 .Hero__condition {
   text-transform: capitalize;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
 }
 
 .Hero__minMax {
   width: 100%;
-  font-size: 1.4rem;
   display: flex;
   justify-content: space-evenly;
 }

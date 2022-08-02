@@ -1,0 +1,30 @@
+.ResumeCard {
+  width: 64px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 8px
+}
+
+.ResumeCard__title {
+  width: 100%;
+  font-weight: 600;
+  text-align: center;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  text-transform: uppercase;
+}
+
+.ResumeCard__icon {
+  height: 56px;
+}
+
+.ResumeCard__weather {
+  width: 100%;
+  font-weight: 700;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 2.4rem;
+}

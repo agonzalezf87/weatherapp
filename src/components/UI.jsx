@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react"
 import { WeatherContext } from "../context/WeatherContext"
 import axios from "axios"
-import uiStyles from '../styles/UI.module.css'
+import UIStyle from '../styles/UI.module.css'
 import testWeather from "../testWeather"
+import testForecast from "../testForecast"
 import { Hero } from './Hero'
+import { Details } from './Details'
 
 const apiURL = import.meta.env.VITE_API_URL
 const apiKey = import.meta.env.VITE_API_KEY
@@ -16,7 +18,8 @@ const UI = () => {
     toggleUnits
   } = useContext(WeatherContext)
   const {appLang, appMode, appUnits} = parameters[0]
-  const [wData, setWData] = useState()
+  const [weather, setWeather] = useState()
+  const [forecast, setForecast] = useState()
   
   const handleLang = () => {
     toggleLang()
@@ -32,7 +35,8 @@ const UI = () => {
 
   useEffect(() =>{
     setTimeout(() => {
-      setWData(testWeather)
+      setWeather(testWeather)
+      setForecast(testForecast)
     }, 1500)
   }, [])
   
@@ -50,7 +54,7 @@ const UI = () => {
           const lat = pos.coords.latitude
           const lon = pos.coords.longitude
           const apiInstance = axios.create({
-            baseURL: apiURL,
+            baseURL: `${apiURL}weather`,
             params: {
               'appid' : apiKey,
               'lat': lat,
@@ -62,9 +66,9 @@ const UI = () => {
           apiInstance.get()
           .then(res => {
             if(res.status === 200) {
-              setWData(res.data)
+              setWeather(res.data)
             } else {
-              setWData({
+              setWeather({
                 error: {
                   code: res.status,
                   text: res.statusText
@@ -76,31 +80,32 @@ const UI = () => {
       )
     }
   }, [appUnits]) */
-  
-  if (wData === undefined) {
+
+  if (weather === undefined && forecast === undefined) {
     return (
-      <main className={appMode === 'day' ? uiStyles.day : uiStyles.night}>
-        <section className={uiStyles.container}>
-          <div className={uiStyles.loader}>
-            <div className={uiStyles.loader__spinner}></div>
-            <div className={uiStyles.loader__text}>Loading data...</div>
+      <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
+        <section className={UIStyle.container}>
+          <div className={UIStyle.loader}>
+            <div className={UIStyle.loader__spinner}></div>
+            <div className={UIStyle.loader__text}>Loading data...</div>
           </div>
         </section>
       </main>
     )
-  }else if (wData !== undefined && !!wData.error) {
-    <main className={appMode === 'day' ? uiStyles.day : uiStyles.night}>
-      <section className={uiStyles.container}>
-        <div className={uiStyles.error}>
+  }else if (weather !== undefined && !!weather.error) {
+    <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
+      <section className={UIStyle.container}>
+        <div className={UIStyle.error}>
           <p>error</p>
         </div>
       </section>
     </main>
-  } else if (wData !== undefined) {
+  } else if (weather !== undefined && forecast !== undefined) {
     return (
-      <main className={appMode === 'day' ? uiStyles.day : uiStyles.night}>
-        <section className={uiStyles.container}>
-          <Hero data={wData[0]}/>
+      <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
+        <section className={UIStyle.container}>
+          <Hero data={weather[0]} />
+          <Details weather={weather[0]} forecast={forecast[0].list} variation={'time'}/>
         </section>
       </main>
     )

@@ -33,16 +33,23 @@ const UI = () => {
     toggleUnits()
   }
 
-  useEffect(() =>{
+  /* useEffect(() =>{
     setTimeout(() => {
       setWeather(testWeather)
       setForecast(testForecast)
     }, 1500)
-  }, [])
+  }, []) */
   
-  /* useEffect(() => {
+  useEffect(() => {
     if(!navigator.geolocation) {
       setWData({
+        error: {
+          code: 0,
+          message:  "Geolocation not supported"
+        }
+      })
+
+      setForecast({
         error: {
           code: 0,
           message:  "Geolocation not supported"
@@ -53,17 +60,29 @@ const UI = () => {
         (pos) => {
           const lat = pos.coords.latitude
           const lon = pos.coords.longitude
-          const apiInstance = axios.create({
+          const wtInstance = axios.create({
             baseURL: `${apiURL}weather`,
             params: {
-              'appid' : apiKey,
+              'appid': apiKey,
               'lat': lat,
               'lon': lon,
               'units': appUnits,
+              'lang': appLang
             }
           })
 
-          apiInstance.get()
+          const fcInstance = axios.create({
+            baseURL: `${apiURL}forecast`,
+            params: {
+              'appid': apiKey,
+              'lat': lat,
+              'lon': lon,
+              'units': appUnits,
+              'lang': appLang
+            }
+          })
+
+          wtInstance.get()
           .then(res => {
             if(res.status === 200) {
               setWeather(res.data)
@@ -76,12 +95,26 @@ const UI = () => {
               })
             }
           })
+
+          fcInstance.get()
+          .then(res => {
+            if(res.status === 200) {
+              setForecast(res.data)
+            } else {
+              setForecast({
+                error: {
+                  code: res.status,
+                  text: res.statusText
+                }
+              })
+            }
+          })
         }
       )
     }
-  }, [appUnits]) */
+  }, [appUnits, appLang])
 
-  if (weather === undefined && forecast === undefined) {
+  if (weather === undefined) {
     return (
       <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
         <section className={UIStyle.container}>
@@ -92,11 +125,30 @@ const UI = () => {
         </section>
       </main>
     )
-  }else if (weather !== undefined && !!weather.error) {
+  } else if (forecast === undefined){
+    return (
+      <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
+        <section className={UIStyle.container}>
+          <div className={UIStyle.loader}>
+            <div className={UIStyle.loader__spinner}></div>
+            <div className={UIStyle.loader__text}>Loading data...</div>
+          </div>
+        </section>
+      </main>
+    )
+  } else if (weather !== undefined && !!weather.error) {
     <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
       <section className={UIStyle.container}>
         <div className={UIStyle.error}>
-          <p>error</p>
+          <p>{`Error ${weather.error.code}: ${weather.error.text}`}</p>
+        </div>
+      </section>
+    </main>
+  } else if (forecast !== undefined && !!forecast.error ) {
+    <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
+      <section className={UIStyle.container}>
+        <div className={UIStyle.error}>
+          <p>{`Error ${forecast.error.code}: ${forecast.error.text}`}</p>
         </div>
       </section>
     </main>
@@ -104,8 +156,8 @@ const UI = () => {
     return (
       <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
         <section className={UIStyle.container}>
-          <Hero data={weather[0]} />
-          <Details weather={weather[0]} forecast={forecast[0].list} variation={'time'}/>
+          <Hero data={weather} />
+          <Details weather={weather} forecast={forecast.list} variation={'time'}/>
         </section>
       </main>
     )

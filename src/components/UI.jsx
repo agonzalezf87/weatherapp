@@ -2,10 +2,9 @@ import { useContext, useEffect, useState } from "react"
 import { WeatherContext } from "../context/WeatherContext"
 import axios from "axios"
 import UIStyle from '../styles/UI.module.css'
-import testWeather from "../testWeather"
-import testForecast from "../testForecast"
 import { Hero } from './Hero'
 import { Details } from './Details'
+import { TopBar } from "./TopBar"
 
 const apiURL = import.meta.env.VITE_API_URL
 const apiKey = import.meta.env.VITE_API_KEY
@@ -32,13 +31,6 @@ const UI = () => {
   const handleUnits = () => {
     toggleUnits()
   }
-
-  /* useEffect(() =>{
-    setTimeout(() => {
-      setWeather(testWeather)
-      setForecast(testForecast)
-    }, 1500)
-  }, []) */
   
   useEffect(() => {
     if(!navigator.geolocation) {
@@ -156,6 +148,7 @@ const UI = () => {
     return (
       <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
         <section className={UIStyle.container}>
+          <TopBar />
           <Hero data={weather} />
           <Details weather={weather} forecast={forecast.list} variation={'time'}/>
         </section>

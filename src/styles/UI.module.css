@@ -72,7 +72,7 @@ button {
 @media screen and (min-width: 600px) {
   .container {
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
   }

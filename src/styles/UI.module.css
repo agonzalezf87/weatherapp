@@ -41,7 +41,7 @@ main {
   background: no-repeat url(../assets/img/day.webp);
   background-size: cover;
   border-radius: 50px;
-  box-shadow: 0 0 25px 5px rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.50);
   position: relative;
 }
 
@@ -58,7 +58,7 @@ main {
   background-image: url(../assets/img/night.webp);
   background-size: cover;
   border-radius: 50px;
-  box-shadow: 0 0 25px 5px rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.50);
   position: relative;
 }
 

@@ -10,6 +10,8 @@ const WeatherProvider = (props) => {
     appUnits: 'imperial',
     savedCoords: []
   }])
+  const [weatherData, setWeatherData] = useState()
+  const [forecastData, setForecastData] = useState()
   
   const [today, setToday] = useState(Date.now())
 
@@ -19,25 +21,30 @@ const WeatherProvider = (props) => {
     setParameters(newLang)
   }
 
-  const toggleMode = () => {
-    const newMode = [...parameters]
-    newMode[0].appMode === 'day' ? newMode[0].appMode ='night' : newMode[0].appMode = 'day'
-    setParameters(newMode)
-  }
-
   const toggleUnits = () => {
     const newUnits = [...parameters]
     newUnits[0].appUnits === 'imperial' ? newUnits[0].appUnits ='metric' : newUnits[0].appUnits = 'imperial'
     setParameters(newUnits)
   }
 
+  const storeWeatherData = (data) => {
+    setWeatherData(data)
+  }
+
+  const storeForecastData = (data) => {
+    setForecastData(data)
+  }
+
   return (
     <WeatherContext.Provider value={{
       parameters,
       today,
+      weatherData,
+      forecastData,
       toggleLang,
-      toggleMode,
-      toggleUnits
+      toggleUnits,
+      storeWeatherData,
+      storeForecastData
     }}>
       {props.children}
     </WeatherContext.Provider>

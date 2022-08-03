@@ -3,19 +3,19 @@ const getDayName = (code, lang) => {
   const day = date.getDay()
   switch(day) {
     case 0:
-      return lang == 'es' ? 'Dom' : 'Sun'
+      return lang === 'es' ? 'Dom' : 'Sun'
     case 1:
-      return lang == 'es' ? 'Lun' : 'Mon'
+      return lang === 'es' ? 'Lun' : 'Mon'
     case 2:
-      return lang == 'es' ? 'Mar' : 'Tue'
+      return lang === 'es' ? 'Mar' : 'Tue'
     case 3:
-      return lang == 'es' ? 'Mie' : 'Wed'
+      return lang === 'es' ? 'Mie' : 'Wed'
     case 4:
-      return lang == 'es' ? 'Jue' : 'Thu'
+      return lang === 'es' ? 'Jue' : 'Thu'
     case 5:
-      return lang == 'es' ? 'Vie' : 'Fri'
+      return lang === 'es' ? 'Vie' : 'Fri'
     case 6:
-      return lang == 'es' ? 'Sab' : 'Sat'
+      return lang === 'es' ? 'Sab' : 'Sat'
   }
 }
 
@@ -46,29 +46,29 @@ const getMonth =(date, lang) => {
 
   switch (month) {
     case 1:
-      return lang == 'es' ? 'Enero' : 'January'
+      return lang === 'es' ? 'Enero' : 'January'
     case 2:
-      return lang == 'es' ? 'Febrero' : 'February'
+      return lang === 'es' ? 'Febrero' : 'February'
     case 3:
-      return lang == 'es' ? 'Marzo' : 'March'
+      return lang === 'es' ? 'Marzo' : 'March'
     case 4:
-      return lang == 'es' ? 'Abril' : 'April'
+      return lang === 'es' ? 'Abril' : 'April'
     case 5:
-      return lang == 'es' ? 'Mayo' : 'May'
+      return lang === 'es' ? 'Mayo' : 'May'
     case 6:
-      return lang == 'es' ? 'Junio' : 'June'
+      return lang === 'es' ? 'Junio' : 'June'
     case 7:
-      return lang == 'es' ? 'Julio' : 'July'
+      return lang === 'es' ? 'Julio' : 'July'
     case 8:
-      return lang == 'es' ? 'Agosto' : 'Agugust'
+      return lang === 'es' ? 'Agosto' : 'Agugust'
     case 9:
-      return lang == 'es' ? 'Septiembre' : 'September'
+      return lang === 'es' ? 'Septiembre' : 'September'
     case 10:
-      return lang == 'es' ? 'Octubre' : 'October'
+      return lang === 'es' ? 'Octubre' : 'October'
     case 11:
-      return lang == 'es' ? 'Noviembre' : 'November'
+      return lang === 'es' ? 'Noviembre' : 'November'
     case 12:
-      return lang == 'es' ? 'Diciembre' : 'December'
+      return lang === 'es' ? 'Diciembre' : 'December'
   }
 }
 

@@ -6,34 +6,60 @@ main {
   align-items: center;
 }
 
-button {
-  height: 32px;
-  font-size: 1.4rem;
-  font-weight: 600;
-  padding: 5px;
-  margin: 0 5px;
-}
-
-.day {
-  background: no-repeat url(../assets/img/day.webp);
-  background-size: cover;
-}
-
-.night {
-  background-image: url(../assets/img/night.webp);
-  background-size: cover;
-}
-
-.container {
+.shadow {
   width: 100%;
+  height: 100%;
+  background-color: rgba(44,44,44, .45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: scroll;
+}
+
+.Container {
+  width: 100%;
+  max-width: 468px;
   height: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   padding: 48px 15px;
-  background-color: rgba(44,44,44, .45);
   overflow-y: scroll;
+}
+
+.Container__day {
+  width: 100%;
+  max-width: 468px;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: 48px 15px;
+  overflow-y: scroll;
+  background: no-repeat url(../assets/img/day.webp);
+  background-size: cover;
+  border-radius: 50px;
+  box-shadow: 0 0 25px 5px rgba(255, 255, 255, 0.65);
+  position: relative;
+}
+
+.Container__night {
+  width: 100%;
+  max-width: 468px;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: 48px 15px;
+  overflow-y: scroll;
+  background-image: url(../assets/img/night.webp);
+  background-size: cover;
+  border-radius: 50px;
+  box-shadow: 0 0 25px 5px rgba(255, 255, 255, 0.65);
+  position: relative;
 }
 
 .loader {
@@ -57,8 +83,8 @@ button {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 4px solid rgb(0, 0, 0, .1);
-  border-left-color: #0e2e72;
+  border: 4px solid rgba(151, 150, 153, 0.6);
+  border-left-color: #11138b;
   margin-bottom: 10px;
 
   animation: spin 1s linear infinite;
@@ -67,13 +93,4 @@ button {
 .loader__text {
   font-size: 2.2rem;
   font-weight: 500;
-}
-
-@media screen and (min-width: 600px) {
-  .container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-  }
 }

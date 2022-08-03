@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { WeatherContext } from '../context/WeatherContext'
 import HeroStyle from '../styles/Hero.module.css'
 import { getDayMonth } from '../services/dateHandling'

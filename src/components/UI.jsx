@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from "react"
 import { WeatherContext } from "../context/WeatherContext"
 import axios from "axios"
 import UIStyle from '../styles/UI.module.css'
-import { TopBar } from "./TopBar"
 import { Hero } from './Hero'
 import { Details } from './Details'
 import { DailyDetails } from "./DailyDetails"
+import { Menu } from './Menu'
 
 const apiURL = import.meta.env.VITE_API_URL
 const apiKey = import.meta.env.VITE_API_KEY
@@ -13,37 +13,23 @@ const apiKey = import.meta.env.VITE_API_KEY
 const UI = () => {
   const {
     parameters,
-    today,
-    toggleLang,
-    toggleMode,
-    toggleUnits
+    weatherData,
+    forecastData,
+    storeForecastData,
+    storeWeatherData
   } = useContext(WeatherContext)
   const {appLang, appMode, appUnits} = parameters[0]
-  const [weather, setWeather] = useState()
-  const [forecast, setForecast] = useState()
-  
-  const handleLang = () => {
-    toggleLang()
-  }
-
-  const handleMode = () => {
-    toggleMode()
-  }
-
-  const handleUnits = () => {
-    toggleUnits()
-  }
   
   useEffect(() => {
     if(!navigator.geolocation) {
-      setWData({
+      storeWeatherData({
         error: {
           code: 0,
           message:  "Geolocation not supported"
         }
       })
 
-      setForecast({
+      storeForecastData({
         error: {
           code: 0,
           message:  "Geolocation not supported"
@@ -79,9 +65,9 @@ const UI = () => {
           wtInstance.get()
           .then(res => {
             if(res.status === 200) {
-              setWeather(res.data)
+              storeWeatherData(res.data)
             } else {
-              setWeather({
+              storeWeatherData({
                 error: {
                   code: res.status,
                   text: res.statusText
@@ -93,9 +79,9 @@ const UI = () => {
           fcInstance.get()
           .then(res => {
             if(res.status === 200) {
-              setForecast(res.data)
+              storeForecastData(res.data)
             } else {
-              setForecast({
+              storeForecastData({
                 error: {
                   code: res.status,
                   text: res.statusText
@@ -106,7 +92,7 @@ const UI = () => {
         }
       )
     }
-  }, [appUnits, appLang])
+  }, [appLang, appUnits])
 
   /* useEffect(() => {
     if (weather !== undefined && forecast !== undefined) {
@@ -114,7 +100,7 @@ const UI = () => {
     }
   }) */
 
-  if (weather === undefined) {
+  if (weatherData === undefined) {
     return (
       <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
         <section className={UIStyle.container}>
@@ -125,9 +111,9 @@ const UI = () => {
         </section>
       </main>
     )
-  } else if (forecast === undefined){
+  } else if (forecastData === undefined){
     return (
-      <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
+      <main>
         <section className={UIStyle.container}>
           <div className={UIStyle.loader}>
             <div className={UIStyle.loader__spinner}></div>
@@ -136,31 +122,33 @@ const UI = () => {
         </section>
       </main>
     )
-  } else if (weather !== undefined && !!weather.error) {
-    <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
+  } else if (weatherData !== undefined && !!weatherData.error) {
+    <main>
       <section className={UIStyle.container}>
         <div className={UIStyle.error}>
-          <p>{`Error ${weather.error.code}: ${weather.error.text}`}</p>
+          <p>{`Error ${weatherData.error.code}: ${weatherData.error.text}`}</p>
         </div>
       </section>
     </main>
-  } else if (forecast !== undefined && !!forecast.error ) {
-    <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
+  } else if (forecastData !== undefined && !!forecastData.error ) {
+    <main>
       <section className={UIStyle.container}>
         <div className={UIStyle.error}>
-          <p>{`Error ${forecast.error.code}: ${forecast.error.text}`}</p>
+          <p>{`Error ${forecastData.error.code}: ${forecastData.error.text}`}</p>
         </div>
       </section>
     </main>
-  } else if (weather !== undefined && forecast !== undefined) {
+  } else if (weatherData !== undefined && forecastData !== undefined) {
     return (
-      <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
-        <section className={UIStyle.container}>
-          <TopBar />
-          <Hero data={weather} />
-          <Details weather={weather} forecast={forecast.list} variation={'time'}/>
-          <DailyDetails weather={weather} forecast={forecast.list} />
-        </section>
+      <main>
+        <div className={UIStyle.shadow}>
+          <section className={weatherData.dt < weatherData.sys.sunset && weatherData.dt > weatherData.sys.sunrise ? UIStyle.Container__day : UIStyle.Container__night}>
+            <Menu />
+            <Hero data={weatherData} />
+            <Details weather={weatherData} forecast={forecastData.list} variation={'time'}/>
+            <DailyDetails weather={weatherData} forecast={forecastData.list} />
+          </section>
+        </div>
       </main>
     )
   }

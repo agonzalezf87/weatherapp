@@ -16,4 +16,6 @@ body {
   color: white;
   scroll-behavior: smooth;
   overflow: hidden;
+  background: no-repeat url(../assets/img/galaxy.webp);
+  background-size: cover;
 }

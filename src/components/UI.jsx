@@ -70,7 +70,7 @@ const UI = () => {
               storeWeatherData({
                 error: {
                   code: res.status,
-                  text: res.statusText
+                  message: res.statusText
                 }
               })
             }
@@ -84,22 +84,32 @@ const UI = () => {
               storeForecastData({
                 error: {
                   code: res.status,
-                  text: res.statusText
+                  message: res.statusText
                 }
               })
             }
           })
-        }
+        },
+        (err) => {
+          storeWeatherData({
+            error: {
+              code: err.code,
+              message:  err.message
+            }
+          })
+    
+          storeForecastData({
+            error: {
+              code: err.code,
+              message:  err.message
+            }
+          })
+        },
+        {enableHighAccuracy: true}
       )
     }
   }, [appLang, appUnits])
-
-  /* useEffect(() => {
-    if (weather !== undefined && forecast !== undefined) {
-      console.log(today)
-    }
-  }) */
-
+  
   if (weatherData === undefined) {
     return (
       <main className={appMode === 'day' ? UIStyle.day : UIStyle.night}>
@@ -123,21 +133,19 @@ const UI = () => {
       </main>
     )
   } else if (weatherData !== undefined && !!weatherData.error) {
-    <main>
-      <section className={UIStyle.container}>
-        <div className={UIStyle.error}>
-          <p>{`Error ${weatherData.error.code}: ${weatherData.error.text}`}</p>
-        </div>
-      </section>
-    </main>
-  } else if (forecastData !== undefined && !!forecastData.error ) {
-    <main>
-      <section className={UIStyle.container}>
-        <div className={UIStyle.error}>
-          <p>{`Error ${forecastData.error.code}: ${forecastData.error.text}`}</p>
-        </div>
-      </section>
-    </main>
+    if (forecastData !== undefined && !!forecastData.error ) {
+      return (
+        <main>
+          <div className={UIStyle.shadow}>
+            <section className={UIStyle.container}>
+              <div className={UIStyle.error}>
+                <p>{`Error ${weatherData.error.code}: ${weatherData.error.message}`}</p>
+              </div>
+            </section>
+          </div>
+        </main>
+      )
+    }
   } else if (weatherData !== undefined && forecastData !== undefined) {
     return (
       <main>

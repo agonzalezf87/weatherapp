@@ -36,6 +36,7 @@
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.6);;
 }
 
 .ResumeCardVert__title, .ResumeCardVert__weather, .ResumeCardVert__minTemp, .ResumeCardVert__minmax, .ResumeCardVert__maxTemp {
@@ -77,12 +78,12 @@
 }
 
 .ResumeCardVert__minTemp {
-  padding-right: 0;
+  padding-right: 6px;
   justify-content: flex-end;
 }
 
 .ResumeCardVert__maxTemp {
-  padding-left: 0;
+  padding-left: 6px;
   justify-content: flex-start;
 }
 
@@ -91,19 +92,21 @@
 }
 
 .ResumeCardVert__minmax {
+  position: relative;
   padding: 0;
-}
-
-.ResumeCardVert__minmax__content {
   width: 64px;
   height: 4px;
-  border: 2px solid gray;
+  background-color: gray;
   border-radius: 2px;
 }
 
-.ResumeCardVert__minmax__today {
-  width: 4px;
+.ResumeCardVert__minmax__content {
+  position: absolute;
   height: 4px;
-  background-color: white;
-  border-radius: 50%;
+  width: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(254,151,0,1) 25%, rgba(255,0,0,1) 75%, rgba(255,0,0,1)100%);
+  z-index: 1;
+  top: 0;
+  left: 0;
 }

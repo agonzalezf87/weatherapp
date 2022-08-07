@@ -4,14 +4,19 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 const WeatherContext = createContext()
 
 const WeatherProvider = (props) => {
-  const [parameters, setParameters] = useLocalStorage('WeatherApp_V1', [{
-    appLang: 'en',
-    appMode: 'day',
-    appUnits: 'imperial',
-    savedCoords: []
+  const [parameters, setParameters] = useLocalStorage('WeatherApp_V2', [{
+    appLang: 'es',
+    appUnits: 'metric',
+    defaultLocation: {
+      defLat: 19.25,
+      defLon: -99.1667
+    },
+    savedLocations: []
   }])
-  const [weatherData, setWeatherData] = useState()
-  const [forecastData, setForecastData] = useState()
+  const [weatherData, setWeatherData] = useState({
+    loading: true
+  })
+  const [currCity, setCurrCity] = useState({})
   
   const [today, setToday] = useState(Date.now())
 
@@ -30,21 +35,24 @@ const WeatherProvider = (props) => {
   const storeWeatherData = (data) => {
     setWeatherData(data)
   }
-
-  const storeForecastData = (data) => {
-    setForecastData(data)
-  }
+  
+  const storeCurrCity = (cty, ctry) => {
+    setCurrCity({
+      name: cty,
+      country: ctry
+    })
+  } 
 
   return (
     <WeatherContext.Provider value={{
       parameters,
       today,
       weatherData,
-      forecastData,
+      currCity,
       toggleLang,
       toggleUnits,
       storeWeatherData,
-      storeForecastData
+      storeCurrCity
     }}>
       {props.children}
     </WeatherContext.Provider>
